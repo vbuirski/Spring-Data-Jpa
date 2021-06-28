@@ -45,7 +45,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         RegistrationUnit registrationUnit = new RegistrationUnit();
         registrationUnit.setRegistration(registration);
         registrationUnit.setUnit(unit);
-        registrationUnit.setPriority(98);
+        registrationUnit.setPriority(getRandomNumber(1, 1000));
         registrationUnitRepository.saveAndFlush(registrationUnit);
 
         courseRepository.flush();
@@ -53,7 +53,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         CourseUnit courseUnit = new CourseUnit();
         courseUnit.setCourse(course);
         courseUnit.setUnit(unit);
-        courseUnit.setRating(66);
+        courseUnit.setRating(getRandomNumber(1, 1000));
         courseUnitRepository.saveAndFlush(courseUnit);
 
         return registration;
@@ -69,4 +69,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         return registrationRepository.registrationReport();
     }
 
+    public int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
+    }
 }
