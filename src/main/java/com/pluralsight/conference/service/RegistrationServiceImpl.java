@@ -31,7 +31,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             course.setDescription("Every attendee must comple the intro.");
             //course.setRegistration(registration);
 
-            courseRepository.save(course);
+            courseRepository.saveAndFlush(course);
         }
 
         return registration;

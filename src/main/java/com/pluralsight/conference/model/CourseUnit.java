@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 public class CourseUnit {
     @EmbeddedId
-    CourseUnitKey id;
+    CourseUnitKey id = new CourseUnitKey();
 
     @ManyToOne
     @MapsId("courseId")
