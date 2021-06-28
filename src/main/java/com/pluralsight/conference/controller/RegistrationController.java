@@ -6,15 +6,12 @@ import com.pluralsight.conference.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 public class RegistrationController {
 
     @Autowired
@@ -42,20 +39,17 @@ public class RegistrationController {
     }
 
     @PostMapping("registration")
-    public String addRegistration(@Valid @ModelAttribute ("registration")
-                                              Registration registration,
-                                  BindingResult result) {
+    public @ResponseBody Registration addRegistration(@RequestBody  Registration registration,
+                                                      BindingResult result) {
 
-        if(result.hasErrors()) {
-            System.out.println("There were errors");
-            return "registration";
-        } else {
-            registrationService.addRegistration(registration);
-        }
+        System.out.println("registration: " + registration.toString());
+
+       Registration reg =  registrationService.addRegistration(registration);
 
         System.out.println("Registration: " + registration.getName());
 
-        return "redirect:registration";
+        //return "redirect:registration";
+        return reg;
     }
 
     @PostMapping("registration/update")

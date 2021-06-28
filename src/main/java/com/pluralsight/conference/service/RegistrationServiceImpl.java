@@ -29,7 +29,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             Course course = new Course();
             course.setName("Intro");
             course.setDescription("Every attendee must comple the intro.");
-            course.setRegistration(registration);
+            //course.setRegistration(registration);
 
             courseRepository.save(course);
         }
