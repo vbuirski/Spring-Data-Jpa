@@ -39,10 +39,10 @@ public class RegistrationController {
     }
 
     @PostMapping("registration")
-    public @ResponseBody Registration addRegistration(@RequestBody  Registration registration,
+    public @ResponseBody Registration addRegistration(@RequestBody Registration registration,
                                                       BindingResult result) {
 
-        System.out.println("registration: " + registration.toString());
+        System.out.println("POST registration controller");
 
        Registration reg =  registrationService.addRegistration(registration);
 

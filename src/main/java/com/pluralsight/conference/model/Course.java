@@ -3,6 +3,7 @@ package com.pluralsight.conference.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "COURSE")
 @Data
+@ToString
 public class Course {
 
     @Id
@@ -30,5 +32,4 @@ public class Course {
     @JsonBackReference(value="course-courseunit")
     @OneToMany(mappedBy = "course")
     List<CourseUnit> courseUnits = new ArrayList<>();
-
 }

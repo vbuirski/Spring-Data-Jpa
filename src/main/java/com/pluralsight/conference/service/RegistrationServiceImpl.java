@@ -1,10 +1,7 @@
 package com.pluralsight.conference.service;
 
-import com.pluralsight.conference.model.Course;
-import com.pluralsight.conference.model.Registration;
-import com.pluralsight.conference.model.RegistrationReport;
-import com.pluralsight.conference.repository.CourseRepository;
-import com.pluralsight.conference.repository.RegistrationRepository;
+import com.pluralsight.conference.model.*;
+import com.pluralsight.conference.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,23 +13,48 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Autowired
     private RegistrationRepository registrationRepository;
+
     @Autowired
     private CourseRepository courseRepository;
 
+    @Autowired
+    private UnitRepository unitRepository;
+
+    @Autowired
+    private RegistrationUnitRepository registrationUnitRepository;
+
+    @Autowired
+    private CourseUnitRepository courseUnitRepository;
 
     @Override
     @Transactional
     public Registration addRegistration(Registration registration) {
-        registration = registrationRepository.save(registration);
+        System.out.println("AddRegistration: " + registration.toString());
+        registration = registrationRepository.saveAndFlush(registration);
 
-        if(registration.getId() == null) {
-            Course course = new Course();
-            course.setName("Intro");
-            course.setDescription("Every attendee must comple the intro.");
-            //course.setRegistration(registration);
+        Course course = new Course();
+        course.setName("intro");
+        course.setDescription("mandatory");
+        course.setRegistration(registration);
+        courseRepository.saveAndFlush(course);
 
-            courseRepository.saveAndFlush(course);
-        }
+        Unit unit = new Unit();
+        unit.setCode("CA");
+        unitRepository.saveAndFlush(unit);
+
+        RegistrationUnit registrationUnit = new RegistrationUnit();
+        registrationUnit.setRegistration(registration);
+        registrationUnit.setUnit(unit);
+        registrationUnit.setPriority(98);
+        registrationUnitRepository.saveAndFlush(registrationUnit);
+
+        courseRepository.flush();
+
+        CourseUnit courseUnit = new CourseUnit();
+        courseUnit.setCourse(course);
+        courseUnit.setUnit(unit);
+        courseUnit.setRating(66);
+        courseUnitRepository.saveAndFlush(courseUnit);
 
         return registration;
     }

@@ -23,9 +23,11 @@ public class Registration {
 
     public static final String REGISTRATION_REPORT_JPQL =
             "Select new com.pluralsight.conference.model.RegistrationReport" +
-            "(r.name, c.name, c.description) " +
-            "from Registration r, Course c " +
-            "where r.id = c.registration.id";
+            "(r.name, c.name, c.description, ru.priority, cu.rating) " +
+            "from Registration r, Course c, RegistrationUnit ru, CourseUnit cu " +
+            "where r.id = c.registration.id and " +
+                    "r.id=ru.registration.id " +
+                    " and ru.unit.id = cu.unit.id";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +36,10 @@ public class Registration {
     private String name;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "registration")
+    @OneToMany(mappedBy = "registration", cascade = CascadeType.ALL)
     private List<Course> courses = new ArrayList<>();
 
     @JsonManagedReference(value="registration-registrationunit")
-    @OneToMany(mappedBy = "registration")
+    @OneToMany(mappedBy = "registration", cascade = CascadeType.ALL)
     private List<RegistrationUnit> registrationUnits = new ArrayList<>();
 }
