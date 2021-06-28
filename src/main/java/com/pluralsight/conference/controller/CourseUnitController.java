@@ -3,7 +3,6 @@ package com.pluralsight.conference.controller;
 import com.pluralsight.conference.model.CourseUnit;
 import com.pluralsight.conference.model.RegistrationUnit;
 import com.pluralsight.conference.service.CourseUnitService;
-import com.pluralsight.conference.service.RegistrationUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;

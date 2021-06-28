@@ -27,6 +27,7 @@ public class Course {
     @ManyToOne
     private Registration registration;
 
+    @JsonBackReference(value="course-courseunit")
     @OneToMany(mappedBy = "course")
     List<CourseUnit> courseUnits = new ArrayList<>();
 

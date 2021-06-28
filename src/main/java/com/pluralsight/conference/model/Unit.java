@@ -1,5 +1,6 @@
 package com.pluralsight.conference.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.ToString;
 
@@ -18,9 +19,11 @@ public class Unit {
     @Column(name = "CODE")
     private String code;
 
+    @JsonManagedReference(value="unit-courseunit")
     @OneToMany(mappedBy = "unit")
     List<CourseUnit> courseUnits = new ArrayList<>();
 
+    @JsonManagedReference(value="unit-registrationunit")
     @OneToMany(mappedBy = "unit")
     List<RegistrationUnit> registrationUnits = new ArrayList<>();
 }

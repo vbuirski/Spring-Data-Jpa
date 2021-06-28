@@ -37,6 +37,7 @@ public class Registration {
     @OneToMany(mappedBy = "registration")
     private List<Course> courses = new ArrayList<>();
 
+    @JsonManagedReference(value="registration-registrationunit")
     @OneToMany(mappedBy = "registration")
     private List<RegistrationUnit> registrationUnits = new ArrayList<>();
 }
